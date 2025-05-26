@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>the beginning</title>
+    <link href="https://fonts.googleapis.com/css2?family=Gloock&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&family=Reenie+Beanie&display=swap" rel="stylesheet">
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden; /* Prevent scrolling */
+            display: flex; /* Use flexbox to center content */
+            justify-content: center; /* Center horizontally */
+            align-items: center; /* Center vertically */
+            
+            /* Set 'new background.jpg' as the background for the entire page */
+            background-image: url('images/memory2.jpg'); 
+            background-size: cover; /* Make background image cover the entire body */
+            background-position: center;
+            background-repeat: no-repeat;
+            background-color: #ffb6c1; /* Fallback color */
+        }
+
+        /* Go Back button style */
+        .back-button {
+            position: absolute; /* Position relative to the body */
+            bottom: 20px;
+            right: 20px;
+            background-color: rgba(219, 101, 160, 0.5);
+            color: white;
+            padding: 10px 20px;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: 'Gloock', serif;
+            font-size: 1em;
+            z-index: 20; /* Ensure it's on top */
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+        .back-button:hover {
+            background-color: rgba(126, 18, 74, 0.8);
+            border-color: white;
+        }
+ .text-box {
+    position: absolute;
+    top: 50%;
+    left: 50%; /* shift a little right */
+    transform: translate(-50%, -50%);
+    width: 40%; /* narrower to stay in the cloud */
+    max-width: 700px;
+    text-align: center;
+    padding: 20px;
+    z-index: 10;
+    color: #9e351c;
+}
+
+.line1 {
+    font-family: 'Reenie Beanie', cursive;
+    font-size: 1.6rem; /* smaller than before */
+    margin-bottom: 1.5rem;
+    white-space: pre-line;
+    opacity: 0;
+  transform: translateY(-20px);
+  animation: fadeDown 2s ease-out 1s forwards; /* Delay until typing finishes */
+}
+
+@keyframes fadeDown {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.line2 {
+  font-family: 'Reenie Beanie', cursive;
+  font-size: 1.6rem;
+  white-space: pre-line;
+  margin-top: 1.5rem;
+  opacity: 0;
+  transform: translateY(-20px);
+  animation: fadeDown 2s ease-out 16s forwards; /* Delay until typing finishes */
+}
+
+@keyframes fadeDown {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+
+
+
+    </style>
+</head>
+<body>
+    <button class="back-button" onclick="window.location.href='timeline.html'">Back to Timeline</button>
+    <div class="text-box">
+  <p class="line1">From the very beginning, i felt like this time, it’s different. I met someone who i felt so comfortable with from the first meeting. We clicked so well and I just felt so happy and excited for every day because I was gonna talk with you. Honestly, it was even a bit overwhelming. It felt like i am dreaming. </p>
+  <p class="line2">Why? Because after negative relationship with my ex, and other people in my life, for the first time i felt like somebody really REALLY listened. You showed me geniuine curiosity, interest, listening without judgement, cared about my opinions and values. I was quite shocked that such a person could exist. But it was real. I knew that I definitely want to have you in my life, and I was not gonna give this up.</p>
+</div>
+
+</body>
+</html>

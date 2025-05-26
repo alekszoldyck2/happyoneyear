@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memory 4</title> 
+    <link href="https://fonts.googleapis.com/css2?family=Gloock&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&family=Reenie+Beanie&display=swap" rel="stylesheet">
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-image: url('images/memory4.jpg'); /* Base background from your snippet */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-color: #ffb6c1; /* Fallback */
+        }
+
+        /* Go Back button style - UNCHANGED */
+        .back-button {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            background-color: rgba(219, 101, 160, 0.5);
+            color: white;
+            padding: 10px 20px;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: 'Gloock', serif;
+            font-size: 1em;
+            z-index: 20; 
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+        .back-button:hover {
+            background-color: rgba(126, 18, 74, 0.8);
+            border-color: white;
+        }
+
+        /* Style for the polaroid PNG overlay layer - RE-ADDED & POSITIONED */
+        .polaroid-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-size: cover; /* Covers the whole screen */
+            background-position: center;
+            background-repeat: no-repeat;
+            opacity: 0; /* Starts hidden */
+            transition: opacity 3s ease-in-out; /* Smooth fade */
+            z-index: 15; /* Ensures it's above the background, but below the back button */
+        }
+        /* Specific image for this polaroid layer */
+        #polaroid3Layer { 
+            background-image: url('images/polaroid3.png'); /* Your polaroid image */
+        }
+
+        /* Original Text box styles - RE-ADDED AS PER YOUR INSTRUCTION */
+        .text-box {
+            position: absolute;
+            top: 50%;
+            left: 50%; /* shift a little right */
+            transform: translate(-50%, -50%);
+            width: 40%; /* narrower to stay in the cloud */
+            max-width: 700px;
+            text-align: center;
+            padding: 20px;
+            z-index: 10; /* Ensures text is above background, but below polaroid and back button */
+            color: #9e351c;
+        }
+
+        .line1 {
+            font-family: 'Reenie Beanie', cursive;
+            font-size: 1.6rem; /* smaller than before */
+            margin-bottom: 1.5rem;
+            white-space: pre-line;
+            opacity: 0;
+            transform: translateY(-20px);
+            animation: fadeDown 2s ease-out 1s forwards; /* Delay until typing finishes */
+        }
+
+        @keyframes fadeDown {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .line2 {
+            font-family: 'Reenie Beanie', cursive;
+            font-size: 1.6rem;
+            white-space: pre-line;
+            margin-top: 1.5rem;
+            opacity: 0;
+            transform: translateY(-20px);
+            animation: fadeDown 2s ease-out 16s forwards; /* Delay until typing finishes */
+        }
+    </style>
+</head>
+<body>
+    <button class="back-button" onclick="window.location.href='timeline.html'">Back to Timeline</button>
+
+    <div id="polaroid3Layer" class="polaroid-overlay"></div>
+
+    <div class="text-box">
+        <p class="line1">As the time went by, my love and appreciation for you only grew stronger and stronger and before i knew it, I was completely in love with you.🥺 I loved EVERYTHING about you!I loved the way you talk, your laugh, the way you text, your voice, your expressions, the way you talk in Korean and English.. 
+        </p>
+        <p class="line2">Also, everytime you sent me your picture, I couldn’t stop looking at it, as you are sooo pretty and beautiful and handsome. I remember being so excited when you first showed me your smile, yet you told me it’s nothing special! But my lovie,your smile is one of the most beautiful smiles I have ever seen and whenever you smile my whole world lights up and my whole heart warms up, so always smile, without hiding it.🥺🥰❤️</p>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const polaroidLayer = document.getElementById('polaroid3Layer');
+            
+            // Make polaroidLayer appear after 4 seconds
+            setTimeout(() => {
+                if (polaroidLayer) { // Ensure element exists before trying to change its style
+                    polaroidLayer.style.opacity = 1; 
+                }
+            }, 16000); // 4 seconds delay
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Our Future</title>
+    <link href="https://fonts.googleapis.com/css2?family=Gloock&display=swap" rel="stylesheet">
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden; /* Prevent scrolling */
+            position: relative;
+            background-image: url('images/future.jpg'); /* Set your background image */
+            background-size: cover; /* Ensure image covers the entire viewport */
+            background-position: center; /* Center the image */
+            background-repeat: no-repeat; /* Prevent tiling */
+            display: flex; /* Use flexbox for easy centering of the collage */
+            justify-content: center; /* Center horizontally */
+            align-items: center; /* Center vertically */
+            background-color: #f7d7e3; /* Fallback background color */
+        }
+
+        /* Styles for the collage image */
+        #collage-image {
+            max-width: 80vw; /* Adjust as needed, e.g., 80% of viewport width */
+            max-height: 80vh; /* Adjust as needed, e.g., 80% of viewport height */
+            width: auto;
+            height: auto;
+            display: block; /* Ensures proper sizing */
+            opacity: 0; /* Hidden initially */
+            animation: fadeIn 3s ease-in-out 1s forwards; /* Fade in over 3 seconds, starts after 1 second delay */
+            border: 20px solid white; /* Thicker white border for polaroid look */
+            border-radius: 5px; /* Slightly less rounded corners for polaroid look */
+            /* Pinkish, spread shadow: rgba(247, 215, 227) is a light pink */
+            box-shadow: 5px 5px 20px rgba(247, 215, 227, 0.5); /* Soft, organic pinkish shadow */
+            object-fit: contain; /* Ensures the entire image is visible, scales down if needed */
+        }
+
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+
+    <img id="collage-image" src="images/collage.png" alt="Our Future Collage">
+
+</body>
+</html>

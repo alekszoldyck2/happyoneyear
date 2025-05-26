@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>the beginning</title>
+    <link href="https://fonts.googleapis.com/css2?family=Gloock&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&family=Reenie+Beanie&display=swap" rel="stylesheet">
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden; /* Prevent scrolling */
+            display: flex; /* Use flexbox to center content */
+            justify-content: center; /* Center horizontally */
+            align-items: center; /* Center vertically */
+            
+            /* The main background image for the entire page (memory3.jpg) */
+            background-image: url('images/memory3.jpg'); 
+            background-size: cover; 
+            background-position: center;
+            background-repeat: no-repeat;
+            background-color: #ffb6c1; /* Fallback color */
+        }
+
+        /* Go Back button style - unchanged */
+        .back-button {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            background-color: rgba(219, 101, 160, 0.5);
+            color: white;
+            padding: 10px 20px;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: 'Gloock', serif;
+            font-size: 1em;
+            z-index: 30; /* Higher z-index to be on top of everything */
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+        .back-button:hover {
+            background-color: rgba(126, 18, 74, 0.8);
+            border-color: white;
+        }
+
+        /* NEW: Styles for the individual text PNG overlay layers */
+        .text-png-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-size: cover; /* Make the PNG cover the whole screen */
+            background-position: center;
+            background-repeat: no-repeat;
+            opacity: 0; /* Start hidden */
+            transition: opacity 1.5s ease-in-out; /* Smooth fade for PNGs */
+            z-index: 10; /* Above the body background, below back button */
+        }
+
+        /* Individual text PNG layers with their background images */
+        #textPng1 { background-image: url('images/text1.png'); } /* <--- RENAME THESE TO YOUR ACTUAL PNG FILE NAMES */
+        #textPng2 { background-image: url('images/text2.png'); }
+        #textPng3 { background-image: url('images/text3.png'); }
+        #textPng4 { background-image: url('images/text4.png'); }
+        #textPng5 { background-image: url('images/text5.png'); }
+
+
+        /* Original Text box styles - KEPT AS PER YOUR INSTRUCTION */
+        .text-box {
+            position: absolute;
+            top: 50%;
+            left: 50%; /* shift a little right */
+            transform: translate(-50%, -50%);
+            width: 40%; /* narrower to stay in the cloud */
+            max-width: 700px;
+            text-align: center;
+            padding: 20px;
+            z-index: 10; /* Ensures text is above image layers */
+            color: #9e351c;
+        }
+
+        .line1 {
+            font-family: 'Reenie Beanie', cursive;
+            font-size: 1.6rem; /* smaller than before */
+            margin-bottom: 1.5rem;
+            white-space: pre-line;
+            opacity: 0;
+            transform: translateY(-20px);
+            animation: fadeDown 2s ease-out 1s forwards; /* Delay until typing finishes */
+        }
+
+        @keyframes fadeDown {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .line2 {
+            font-family: 'Reenie Beanie', cursive;
+            font-size: 1.6rem;
+            white-space: pre-line;
+            margin-top: 1.5rem;
+            opacity: 0;
+            transform: translateY(-20px);
+            animation: fadeDown 2s ease-out 16s forwards; /* Delay until typing finishes */
+        }
+    </style>
+</head>
+<body>
+    <button class="back-button" onclick="window.location.href='timeline.html'">Back to Timeline</button>
+
+    <div id="textPng1" class="text-png-overlay"></div>
+    <div id="textPng2" class="text-png-overlay"></div>
+    <div id="textPng3" class="text-png-overlay"></div>
+    <div id="textPng4" class="text-png-overlay"></div>
+    <div id="textPng5" class="text-png-overlay"></div>
+
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const textPngs = [
+                document.getElementById('textPng1'),
+                document.getElementById('textPng2'),
+                document.getElementById('textPng3'),
+                document.getElementById('textPng4'),
+                document.getElementById('textPng5')
+            ];
+            
+            let currentDelay = 0; // Starting delay for the first PNG
+            const delayBetweenPngs = 8000; // 10 seconds between each PNG appearing
+
+            textPngs.forEach((pngLayer, index) => {
+                // Add a delay for each subsequent PNG
+                currentDelay += delayBetweenPngs; 
+                setTimeout(() => {
+                    pngLayer.style.opacity = 1; // Make the PNG visible
+                }, currentDelay);
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy 1 Year 💖 - Start</title>
+    <link href="https://fonts.googleapis.com/css2?family=Gloock&display=swap" rel="stylesheet">
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            font-family: 'Gloock', serif;
+            background-color: #ffb6c1; /* Page will fade to this color */
+            /* !!! CHANGED DURATION HERE !!! */
+            transition: opacity 1s ease-out; /* Fade out over 1 second */
+        }
+
+        body.fade-out-page {
+            opacity: 0; /* Make the entire page transparent */
+        }
+
+        .full-screen-bg {
+            background-image: url('images/1.jpg'); /* Your background image for the first page */
+            background-size: cover;
+            background-position: center center;
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-align: center;
+        }
+        #typingContainer {
+            font-size: 2rem;
+            max-width: 80%;
+            line-height: 2.5rem;
+            opacity: 0;
+            transition: opacity 0.5s ease; /* This is for the text container itself fading in/out during typing */
+        }
+    </style>
+</head>
+<body>
+    <div class="full-screen-bg">
+        <div id="typingContainer"></div>
+    </div>
+
+    <script>
+        const messages = [
+            "hello, my lovie❤️",
+            "it has been a wonderful one year with you",
+            "i would like to look back on our memories",
+            "shall we do it together?🥰"
+        ];
+        const container = document.getElementById("typingContainer");
+        let currentIndex = 0;
+
+        function typeMessage(message, callback) {
+            let i = 0;
+            container.textContent = "";
+            container.style.opacity = 1;
+
+            function typeChar() {
+                if (i < message.length) {
+                    container.textContent += message.charAt(i);
+                    i++;
+                    setTimeout(typeChar, 60);
+                } else {
+                    setTimeout(() => {
+                        fadeOut(() => {
+                            if (currentIndex === messages.length - 1) {
+                                document.body.classList.add('fade-out-page');
+                                // !!! CHANGED DURATION HERE !!!
+                                setTimeout(() => {
+                                    window.location.href = 'timeline.html';
+                                }, 1000); // This delay must match the CSS transition duration (1000ms = 1 second)
+                            } else {
+                                callback();
+                            }
+                        });
+                    }, 3000);
+                }
+            }
+            typeChar();
+        }
+
+        function fadeOut(callback) {
+            let opacity = 1;
+            function decrease() {
+                opacity -= 0.05;
+                if (opacity <= 0) {
+                    container.style.opacity = 0;
+                    callback();
+                } else {
+                    container.style.opacity = opacity;
+                    requestAnimationFrame(decrease);
+                }
+            }
+            decrease();
+        }
+
+        function startTyping() {
+            if (currentIndex < messages.length) {
+                typeMessage(messages[currentIndex], () => {
+                    currentIndex++;
+                    startTyping();
+                });
+            }
+        }
+        
+        document.addEventListener('DOMContentLoaded', startTyping);
+    </script>
+</body>
+</html>

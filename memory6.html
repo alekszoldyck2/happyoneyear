@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Memory 6: Our Second Meeting</title>
+    <link href="https://fonts.googleapis.com/css2?family=Gloock&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&family=Reenie+Beanie&display=swap" rel="stylesheet">
+    <style>
+        /* General page setup */
+        html, body {
+            height: 100%; /* Ensure both HTML and Body fill the viewport */
+            margin: 0; /* Remove default browser margins */
+            padding: 0; /* Remove default browser padding */
+            overflow: hidden; /* Prevent scrollbars */
+            position: relative; /* For positioning child elements */
+            background-color: #f7d7e3; /* Base color for transition */
+            background-image: url('images/memory6.jpg'); /* Initial background for Stage 1 (You'll need this image) */
+            background-size: cover; /* Ensures background covers the viewport */
+            background-position: center;
+            background-repeat: no-repeat;
+            transition: background-image 1.5s ease-in-out; /* Smooth transition for background image change */
+        }
+
+        /* Go Back button style - remains always visible */
+        .back-button {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            background-color: rgba(219, 101, 160, 0.5);
+            color: white;
+            padding: 10px 20px;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: 'Gloock', serif;
+            font-size: 1em;
+            z-index: 999; /* Highest z-index */
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+        .back-button:hover {
+            background-color: rgba(126, 18, 74, 0.8);
+            border-color: white;
+        }
+
+        /* --- Stage 1 Elements (Text Only) --- */
+        .text {
+            position: absolute;
+            top: 50%; /* Centered vertically */
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: 'Reenie Beanie', cursive;
+            font-size: 3em;
+            color: white;
+            opacity: 0;
+            z-index: 10;
+            animation-fill-mode: forwards;
+            text-align: center;
+        }
+
+        .text-1 {
+            animation: fadeInOut 3s ease-in-out 0.5s forwards;
+        }
+
+        .text-2 {
+            animation: fadeInOut 3s ease-in-out 7s forwards; /* Adjust timing if needed */
+        }
+
+        @keyframes fadeInOut {
+            0% { opacity: 0; }
+            30% { opacity: 1; }
+            70% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+
+
+        /* --- Stage 2 Specific Styles --- */
+
+        /* This overlay handles the pink fade-in/out during the transition */
+        #stage2-pink-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #f7d7e3; /* The pink color for transition */
+            opacity: 0; /* Starts hidden */
+            z-index: -5; /* Initially behind everything */
+            transition: opacity 1.5s ease-in-out; /* For fade in/out */
+        }
+
+        /* Container for all Stage 2 elements (text, polaroids) */
+        #stage2-elements-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0; /* Starts hidden */
+            z-index: 10; /* Appears over the new background */
+            transition: opacity 1.5s ease-in-out; /* For fading in Stage 2 content */
+            display: flex; /* Use flexbox to center its children */
+            justify-content: center; /* Center horizontally */
+            align-items: center; /* Center vertically */
+        }
+
+        /* Main container for the two text paragraphs */
+        #main-text-container {
+            width: 39vw; /* Adjust as needed for your background image */
+            max-width: 900px; /* Max width to prevent it from getting too wide */
+            text-align: center; /* Center the text within this container */
+            color: #4A4A4A; /* Darker text for readability on light background */
+            font-family: 'Reenie Beanie', cursive; /* Your chosen script font */
+            font-size: 1.8em; /* Adjust font size */
+            opacity: 0; /* Starts hidden, revealed by JS */
+            transition: opacity 1s ease-in-out;
+            padding: 20px; /* Padding inside the text container */
+            box-sizing: border-box; /* Include padding in width */
+            z-index: 20; /* Above polaroids */
+            margin: auto; /* Helps center within flex container */
+        }
+
+        /* Polaroid images for Stage 2 - These are full-screen overlays */
+        .polaroid-pic {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100vw; /* Explicitly full viewport width */
+            height: 100vh; /* Explicitly full viewport height */
+            object-fit: cover; /* Ensures the image covers the full container, cropping if necessary */
+            opacity: 0; /* Starts hidden */
+            transition: opacity 1.5s ease-in-out; /* Fade in, no fade out */
+            z-index: 15; /* Below text container, above background */
+        }
+    </style>
+</head>
+<body>
+    <button class="back-button" onclick="window.location.href='timeline.html'">Back to Timeline</button>
+
+    <div class="text text-1 stage1-element">I thought I couldn't be more happy than at our first meeting</div>
+    <div class="text text-2 stage1-element">but then we met for the second time, and everything aligned.</div>
+
+    <div id="stage2-pink-overlay"></div>
+
+    <div id="stage2-elements-container">
+        <img id="pic11" class="polaroid-pic" src="images/pic11.png" alt="Polaroid 11">
+        <img id="pic12" class="polaroid-pic" src="images/pic12.png" alt="Polaroid 12">
+        <img id="pic13" class="polaroid-pic" src="images/pic13.png" alt="Polaroid 13">
+        <img id="pic14" class="polaroid-pic" src="images/pic14.png" alt="Polaroid 14">
+        <img id="pic15" class="polaroid-pic" src="images/pic15.png" alt="Polaroid 15">
+        <img id="pic16" class="polaroid-pic" src="images/pic16.png" alt="Polaroid 16">
+        <img id="pic17" class="polaroid-pic" src="images/pic17.png" alt="Polaroid 17">
+        <img id="pic18" class="polaroid-pic" src="images/pic18.png" alt="Polaroid 18">
+        <img id="pic19" class="polaroid-pic" src="images/pic19.png" alt="Polaroid 19">
+        <img id="pic20" class="polaroid-pic" src="images/pic20.png" alt="Polaroid 20">
+
+        <div id="main-text-container">
+            <p id="secondMeetingText1" class="second-meeting-text"> Our second meeting..🥺🥺🥰❤️❤️This time we saw each other for a month and it was my favorite one month in my whole life!!! I was sooooooo happy and loved every day. We did so many more things this time, we went to Belgrade, ate a lot of delicious food, did more hanky panky and intimate things haha, watched Anne with an E and Titanic, explored Ruski Kerestur and Novi Sad, played board games, talked a lot, enjoyed every second being with each other. It felt so at home, being with you, and it made me so excited for our life together in the future. 
+
+            </p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const pinkOverlay = document.getElementById('stage2-pink-overlay');
+            const stage2ElementsContainer = document.getElementById('stage2-elements-container');
+            const mainTextContainer = document.getElementById('main-text-container');
+            const secondMeetingText1 = document.getElementById('secondMeetingText1'); // Changed ID for clarity
+            const secondMeetingText2 = document.getElementById('secondMeetingText2'); // Changed ID for clarity
+            const toggleTextButton = document.getElementById('toggleTextButton');
+
+            // Select all Stage 1 elements to hide them later
+            const stage1Elements = document.querySelectorAll('.stage1-element');
+
+            // --- Timing for Stage 1 completion and Stage 2 initiation ---
+            // Adjusted timing since there are only two text animations in Stage 1
+            const stage1EndTime = 10000; // Text 2 animation starts at 7s and ends around 10s.
+
+            // Start the pink transition 0.5 seconds after Stage 1 finishes
+            const transitionStartDelay = stage1EndTime + 500; // 10.5 seconds
+
+            setTimeout(() => {
+                // Step 1: Make the pink overlay visible and bring it to front
+                pinkOverlay.style.zIndex = 50; // Temporarily highest z-index
+                pinkOverlay.style.opacity = 1;
+
+                // After pink overlay is fully visible (1.5s transition), then update background and reveal Stage 2 content
+                setTimeout(() => {
+                    // **** IMPORTANT: REPLACE 'memory6-2.jpg' WITH YOUR ACTUAL NEW BACKGROUND IMAGE FILENAME ****
+                    document.body.style.backgroundImage = "url('images/memory6-2.jpg')";
+                    
+                    // Hide all Stage 1 elements completely
+                    stage1Elements.forEach(el => el.style.display = 'none');
+
+                    // Bring stage2 content elements container to front and fade it in
+                    stage2ElementsContainer.style.zIndex = 40; // Above old content
+                    stage2ElementsContainer.style.opacity = 1;
+
+                    // Fade out pink overlay
+                    pinkOverlay.style.opacity = 0;
+                    setTimeout(() => {
+                        pinkOverlay.style.zIndex = -5; // Move back behind after it has faded out
+                    }, 1500); // Duration of pink overlay fade-out
+
+                    // --- Start Stage 2 Content Animations ---
+                    
+                    // Fade in the main text container
+                    mainTextContainer.style.opacity = 1;
+
+                    // Show Text 1 initially
+                    secondMeetingText1.classList.add('current-text');
+
+                    // Polaroids: Appear one by one
+                    const polaroidImages = [];
+                    // **** IMPORTANT: ENSURE THESE IDs MATCH YOUR NEW POLAROID IMAGE IDs (e.g., pic11, pic12, etc.) ****
+                    for (let i = 11; i <= 20; i++) { // Adjusted loop for new polaroid IDs
+                        polaroidImages.push(document.getElementById(`pic${i}`));
+                    }
+
+                    // Staggered appearance for polaroids
+                    let polaroidAppearStartDelay = 1500; // Start first polaroid after text is visible
+                    polaroidImages.forEach((img, index) => {
+                        setTimeout(() => {
+                            img.style.opacity = 1; // Just fade in, won't fade out
+                        }, polaroidAppearStartDelay + (index * 500)); // 0.5s delay between each polaroid
+                    });
+
+                    // Text 2 fades in after Text 1 duration (30 seconds from Stage 2 content start)
+                    let currentTextIs1 = true; // State variable for text toggle
+
+                    setTimeout(() => {
+                        secondMeetingText1.classList.remove('current-text');
+                        secondMeetingText2.classList.add('current-text');
+                        toggleTextButton.style.display = 'block'; // Show back button
+                        currentTextIs1 = false; // Update state
+                        toggleTextButton.textContent = 'Back to First Text'; // Set initial button text
+                    }, 30000); // Text 1 stays for 30 seconds
+
+                    // Text Toggle Button Logic
+                    toggleTextButton.onclick = () => {
+                        if (!currentTextIs1) { // If currently on text 2, go back to text 1
+                            secondMeetingText2.classList.remove('current-text');
+                            secondMeetingText1.classList.add('current-text');
+                            toggleTextButton.textContent = 'Go to Next Text'; // Update button text
+                        } else { // If currently on text 1, go to text 2
+                            secondMeetingText1.classList.remove('current-text');
+                            secondMeetingText2.classList.add('current-text');
+                            toggleTextButton.textContent = 'Back to First Text'; // Update button text
+                        }
+                        currentTextIs1 = !currentTextIs1;
+                    };
+
+                }, 1500); // This delay matches the pink overlay's fade-in duration
+
+            }, transitionStartDelay); // Total delay for stage 2 to begin, in milliseconds
+        });
+    </script>
+</body>
+</html>

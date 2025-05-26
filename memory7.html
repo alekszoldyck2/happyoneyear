@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Memory 7: Our Future</title>
+    <link href="https://fonts.googleapis.com/css2?family=Gloock&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Reenie+Beanie&family=Nanum+Pen+Script&display=swap" rel="stylesheet">
+    <style>
+        /* General page setup */
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            position: relative;
+            background-color: white; /* Initial background color before pink overlay */
+            transition: background-image 1.5s ease-in-out; /* For background image change */
+        }
+
+        /* Go Back to Timeline button - remains always visible */
+        .back-to-timeline-button {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            background-color: rgba(219, 101, 160, 0.5);
+            color: white;
+            padding: 10px 20px;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: 'Gloock', serif;
+            font-size: 1em;
+            z-index: 999; /* Highest z-index */
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+        .back-to-timeline-button:hover {
+            background-color: rgba(126, 18, 74, 0.8);
+            border-color: white;
+        }
+
+        /* Pink overlay for transition */
+        #stage2-pink-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #f7d7e3;
+            opacity: 0;
+            z-index: 10; /* Above initial white background */
+            transition: opacity 1.5s ease-in-out;
+        }
+
+        /* Text within the cloud */
+        .cloud-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: 'Reenie Beanie', cursive;
+            font-size: 1.8em; /* Adjusted font size */
+            color: #9e351c; /* Adjusted color */
+            opacity: 0; /* Hidden by default, controlled by JS */
+            z-index: 15; /* Above the background */
+            text-align: center;
+            width: 39vw; /* Adjusted width */
+            max-width: 65%; /* Adjusted max-width */
+            box-sizing: border-box; /* Include padding in width */
+            padding: 10px; /* Some padding around the text */
+            transition: opacity 1.5s ease-in-out; /* Smooth fade for text changes */
+        }
+
+        /* Class to make a text visible */
+        .cloud-text.active {
+            opacity: 1;
+        }
+
+        /* Specific style for the last text element */
+        .cloud-text.nanum-font {
+            font-family: 'Nanum Pen Script', cursive; /* Korean font for this specific text */
+        }
+
+        /* Styles for navigation buttons (Next/Back) */
+        .text-nav-button {
+            position: absolute;
+            bottom: 20px; /* At the bottom */
+            background-color: rgba(219, 101, 160, 0.7);
+            color: white;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: 'Gloock', serif;
+            font-size: 0.9em; /* Small */
+            transition: background-color 0.3s ease;
+            z-index: 25;
+        }
+        .text-nav-button:hover {
+            background-color: rgba(126, 18, 74, 0.9);
+        }
+
+        #backTextButton {
+            left: 40%; /* Adjust as needed for small buttons */
+            transform: translateX(-50%);
+            display: none; /* Hidden initially */
+        }
+
+        #nextTextButton {
+            right: 40%; /* Adjust as needed for small buttons */
+            transform: translateX(50%);
+            display: none; /* Hidden initially, will appear after delay */
+        }
+    </style>
+</head>
+<body>
+
+    <button class="back-to-timeline-button" onclick="window.location.href='timeline.html'">Back to Timeline</button>
+
+    <div id="stage2-pink-overlay"></div>
+
+    <div class="cloud-text text-1">
+        Thank you for looking back with me on our memories. I want to thank you, my lovie. Thank you for being you, for being so kind, so lovely, so cute, so sweet, so adorable, so pretty, amazing, extraordinary, fun, interesting, caring, the most amazing partner. I’m so happy that I met you. I could never imagine that I will find my lifemate who is my bestfriend at the same time. Don’t ever forget how special and amazing you are. You are uniquely you and I love everything that makes you-YOU! Don’t let people make you feel small about yourself, but if they do, I will be here to comfort you and to tell you - YOU ARE AMAZING!
+    </div>
+    <div class="cloud-text text-2">
+        I am so excited about our future together. I pray that we are always happy, healthy, but most importantly-together. Wherever we will be, whether thats Korea or Canada or any other place we might travel to, I know we will be happy since we will be together. The future is scary but I’m not scared because you are here to hold my hand. I can go through anything because I have you, my angel. 🥺❤️❤️🥺🥰
+    </div>
+    <div class="cloud-text text-3 nanum-font">
+        금용 만나서 너무너무너무 행볻해요.
+        태어나줘서 너무 고맙고 제 인생에 있어줘서 고마워요.
+        영원히 사랑해요 우리 하나 뿐인 정금용.
+    </div>
+
+    <button id="backTextButton" class="text-nav-button">Back</button>
+    <button id="nextTextButton" class="text-nav-button">Next</button>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const pinkOverlay = document.getElementById('stage2-pink-overlay');
+            const texts = document.querySelectorAll('.cloud-text');
+            const backTextButton = document.getElementById('backTextButton');
+            const nextTextButton = document.getElementById('nextTextButton');
+
+            let currentTextIndex = 0; // Start with the first text
+
+            // Function to show a specific text and manage button visibility
+            const showText = (index) => {
+                // Hide all texts
+                texts.forEach(text => text.classList.remove('active'));
+
+                // Show the current text with a fade-in effect
+                if (texts[index]) { // Ensure text exists
+                    texts[index].classList.add('active');
+                }
+
+                // Manage Back button visibility
+                if (index === 0) {
+                    backTextButton.style.display = 'none';
+                } else {
+                    backTextButton.style.display = 'block';
+                }
+
+                // Manage Next button text and action
+                if (index === texts.length - 1) { // If it's the last text
+                    nextTextButton.textContent = 'Go to the Future!';
+                    nextTextButton.onclick = () => {
+                        window.location.href = 'future.html';
+                    };
+                } else {
+                    nextTextButton.textContent = 'Next';
+                    nextTextButton.onclick = () => {
+                        currentTextIndex++;
+                        showText(currentTextIndex);
+                    };
+                }
+            };
+
+            // Event listeners for navigation buttons
+            backTextButton.onclick = () => {
+                currentTextIndex--;
+                showText(currentTextIndex);
+            };
+
+            // Initial transition sequence
+            pinkOverlay.style.opacity = 1;
+
+            setTimeout(() => {
+                document.body.style.backgroundImage = "url('images/memory7.jpg')";
+                document.body.style.backgroundSize = "cover";
+                document.body.style.backgroundPosition = "center";
+                document.body.style.backgroundRepeat = "no-repeat";
+
+                pinkOverlay.style.opacity = 0; // Fade out pink
+                setTimeout(() => {
+                    pinkOverlay.style.zIndex = -1; // Move back behind after it has faded out
+
+                    // After the background is fully revealed, show the first text
+                    showText(currentTextIndex);
+
+                    // Delay the appearance of the 'Next' button by 3 seconds
+                    setTimeout(() => {
+                        nextTextButton.style.display = 'block'; // Show next button
+                    }, 3000); // 3-second delay
+                }, 1500); // Duration of pink overlay fade-out
+            }, 1500); // Wait for pink overlay to fade in
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Timeline 💖</title>
+    <link href="https://fonts.googleapis.com/css2?family=Gloock&display=swap" rel="stylesheet">
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            font-family: 'Gloock', serif;
+            background-color: #ffb6c1; /* Fades to soft pink instead of black */
+        }
+        #timelinePage {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 1; /* Always visible initially */
+            
+            /* !!! CHANGED DURATION HERE !!! */
+            transition: opacity 1s ease-out; /* Fade out over 1 second */
+        }
+        #timelinePage.fade-out {
+            opacity: 0; /* Make the page fully transparent */
+        }
+
+        .timeline-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            transform-origin: center center;
+        }
+        #timelineImage {
+            object-fit: cover;
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+        
+        /* Invisible Heart Buttons */
+        .heart-button {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background-color: transparent;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 11;
+            opacity: 0; /* Still invisible until hover */
+            transition: background-color 0.3s ease, opacity 0.3s ease;
+        }
+        .heart-button:hover {
+            background-color: rgba(255, 0, 0, 0.2); /* Red glow on hover */
+            opacity: 1; /* Fully visible on hover */
+        }
+
+        /* --- PRECISE HEART BUTTON POSITIONS (Calculated for your 'timeline-image.jpg') --- */
+        #heart1 { top: 5%; left: 13%; } /* Top-left heart */
+        #heart2 { top: 26%; left: 22.6%; } /* Second left heart */
+        #heart3 { top: 65%; left: 26%; } /* Third left heart */
+        #heart4 { top: 42%; left: 42.0%; } /* Middle heart */
+        #heart5 { top: 43%; left: 59%; } /* First right heart */
+        #heart6 { top: 11%; left: 71%; } /* Second right heart (bottom) */
+        #heart7 { top: 65%; left: 65%; } /* Third right heart (top) */
+
+
+        /* Go Back button style */
+        .back-button {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            padding: 10px 20px;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: 'Gloock', serif;
+            font-size: 1.1em;
+            z-index: 12;
+            transition: background-color 0.3s ease, border-color 0.3s ease, opacity 0.5s ease;
+        }
+        .back-button:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+            border-color: white;
+        }
+    </style>
+</head>
+<body id="timelinePage">
+    <div class="timeline-container">
+        <img id="timelineImage" src="images/timeline-image.jpg" alt="Our Relationship Timeline">
+
+        <button class="heart-button" id="heart1" data-target="memory1.html"></button>
+        <button class="heart-button" id="heart2" data-target="memory2.html"></button>
+        <button class="heart-button" id="heart3" data-target="memory3.html"></button>
+        <button class="heart-button" id="heart4" data-target="memory4.html"></button>
+        <button class="heart-button" id="heart5" data-target="memory5.html"></button>
+        <button class="heart-button" id="heart6" data-target="memory6.html"></button>
+        <button class="heart-button" id="heart7" data-target="memory7.html"></button>
+
+        <button class="back-button" onclick="window.location.href='index.html'">Go Back</button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const hearts = document.querySelectorAll('.heart-button');
+            const timelinePage = document.getElementById('timelinePage'); // Get the main page container
+            const backButton = document.querySelector('.back-button'); // Get the Go Back button
+
+            // Function to handle page navigation with fade out
+            function navigateWithFade(targetPage) {
+                timelinePage.classList.add('fade-out'); // Start fade-out animation
+                // !!! CHANGED DURATION HERE !!!
+                setTimeout(() => {
+                    window.location.href = targetPage;
+                }, 1000); // This delay should match the CSS transition duration (1000ms = 1 second)
+            }
+
+            // Add click event listeners to heart buttons
+            hearts.forEach(heart => {
+                heart.addEventListener('click', (event) => {
+                    event.preventDefault(); // Prevent immediate navigation
+                    const targetPage = event.target.dataset.target;
+                    if (targetPage) {
+                        navigateWithFade(targetPage);
+                    }
+                });
+            });
+
+            // Add click event listener to the "Go Back" button
+            backButton.addEventListener('click', (event) => {
+                event.preventDefault(); // Prevent immediate navigation
+                navigateWithFade('index.html'); // Navigate back to index.html
+            });
+        });
+    </script>
+</body>
+</html>
